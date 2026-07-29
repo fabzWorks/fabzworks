@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* ============================================================
+   FabzWorks Design Tokens
+   Signature: the logo's cascading pixel-block arrow motif is
+   echoed as a diagonal step pattern used in dividers & hero.
+   ============================================================ */
+
+@theme inline {
+  --font-display: "Avenir Next", "Century Gothic", Futura, "Segoe UI", var(--font-sans-fallback);
+  --font-sans: "Segoe UI", Optima, Candara, "Noto Sans", var(--font-sans-fallback);
+  --font-mono: "SF Mono", "Cascadia Code", "Fira Code", Consolas, var(--font-mono-fallback);
+
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-slate: var(--slate);
+}
+
+:root {
+  color-scheme: light;
+  --slate: #5b6472;
+  --font-sans-fallback: system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono-fallback: ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* ACCENT THEME: gold (default — matches the FabzWorks mark) */
+  --accent: #b8862f;
+  --accent-soft: #f3e6cb;
+  --accent-ink: #3d2d0e;
+
+  /* LIGHT MODE surface tokens */
+  --bg: #faf8f3;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #f4f0e6;
+  --border: rgba(20, 20, 20, 0.09);
+  --border-strong: rgba(20, 20, 20, 0.16);
+  --text: #17181c;
+  --text-muted: #565a63;
+  --text-faint: #8b8f99;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #070a12;
+  --bg-elevated: #0c1120;
+  --surface: #0e1424;
+  --surface-hover: #141b30;
+  --border: rgba(224, 179, 84, 0.14);
+  --border-strong: rgba(224, 179, 84, 0.28);
+  --text: #e9ecf5;
+  --text-muted: #a3abc2;
+  --text-faint: #6d7690;
+}
+
+/* ---------- ACCENT THEMES (independent of light/dark) ---------- */
+
+[data-accent="gold"] {
+  --accent: #b8862f;
+  --accent-soft: #f3e6cb;
+  --accent-ink: #3d2d0e;
+}
+.dark[data-accent="gold"] {
+  --accent: #e0b354;
+  --accent-soft: rgba(224, 179, 84, 0.14);
+  --accent-ink: #2a1f08;
+}
+
+[data-accent="ocean"] {
+  --accent: #0f6e93;
+  --accent-soft: #dcedf4;
+  --accent-ink: #062733;
+}
+.dark[data-accent="ocean"] {
+  --accent: #4fc3e8;
+  --accent-soft: rgba(79, 195, 232, 0.14);
+  --accent-ink: #04222d;
+}
+
+[data-accent="sea"] {
+  --accent: #0d7a5f;
+  --accent-soft: #d9f0e6;
+  --accent-ink: #052e22;
+}
+.dark[data-accent="sea"] {
+  --accent: #43d8a6;
+  --accent-soft: rgba(67, 216, 166, 0.14);
+  --accent-ink: #04241a;
+}
+
+[data-accent="floral"] {
+  --accent: #b6532f;
+  --accent-soft: #f6e2d6;
+  --accent-ink: #3a1c0f;
+}
+.dark[data-accent="floral"] {
+  --accent: #e2865c;
+  --accent-soft: rgba(226, 134, 92, 0.14);
+  --accent-ink: #2c1409;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Signature cascading-block divider, echoing the logo mark */
+.brand-cascade {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+}
+.brand-cascade span {
+  display: block;
+  width: 5px;
+  border-radius: 1px;
+  background: var(--accent);
+}
+
+/* Focus visibility */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.container-page {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .container-page {
+    padding-inline: 2.5rem;
+  }
+}
+
+.card-surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
