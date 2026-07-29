@@ -31,6 +31,7 @@ const values = [
 ];
 
 export default function AboutPage() {
+  const newLocal = "font-display text-3xl font-bold text-accent";
   return (
     <>
       <PageHero
@@ -43,10 +44,10 @@ export default function AboutPage() {
         <Container className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:items-center">
           <div>
             <CascadeMark />
-            <h2 className="mt-6 text-2xl font-bold text-[var(--text)] sm:text-3xl">
+            <h2 className="mt-6 text-2xl font-bold text-text sm:text-3xl">
               Our story
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-[var(--text-muted)]">
+            <p className="mt-4 text-[15px] leading-relaxed text-text-muted">
               FabzWorks started with a simple observation: most business
               software fails not because of bad technology, but because it
               was built for a generic use case instead of the specific way a
@@ -54,7 +55,7 @@ export default function AboutPage() {
               way around, starting from real operational problems and
               working backward to the technology.
             </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-[var(--text-muted)]">
+            <p className="mt-4 text-[15px] leading-relaxed text-text-muted">
               Today we design and build ERP, CRM, web, mobile, and
               AI-powered systems for growing companies across retail,
               logistics, financial services, SaaS, and agriculture, always
@@ -65,26 +66,26 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 gap-5">
             {stats.map((s) => (
               <div key={s.label} className="card-surface rounded-2xl border p-6 text-center">
-                <p className="font-[family-name:var(--font-display)] text-3xl font-bold text-[var(--accent)]">
+                <p className={newLocal}>
                   {s.value}
                 </p>
-                <p className="mt-1.5 text-xs text-[var(--text-faint)]">{s.label}</p>
+                <p className="mt-1.5 text-xs text-text-faint">{s.label}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="py-14 sm:py-20 bg-[var(--bg-elevated)] border-y border-[var(--border)]">
+      <section className="py-14 sm:py-20 bg-bg-elevated border-y border-border">
         <Container>
-          <h2 className="text-center text-2xl font-bold text-[var(--text)] sm:text-3xl">
+          <h2 className="text-center text-2xl font-bold text-text sm:text-3xl">
             What guides how we work
           </h2>
           <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {values.map((v) => (
               <div key={v.title} className="card-surface rounded-2xl border p-6">
-                <h3 className="text-base font-semibold text-[var(--text)]">{v.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
+                <h3 className="text-base font-semibold text-text">{v.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-text-muted">
                   {v.text}
                 </p>
               </div>

@@ -2,10 +2,10 @@ import type { TeamMember } from "@/types";
 
 export const team: TeamMember[] = [
   {
-    slug: "hamza-fabani",
-    name: "Hamza Fabani",
+    slug: "farzam-ali",
+    name: "Farzam Ali",
     role: "Founder & CEO",
-    initials: "HF",
+    initials: "FA",
     gradient: "from-[#b8862f] to-[#5b6472]",
     bio: "Leads product vision and enterprise strategy across every FabzWorks engagement.",
     longBio:
