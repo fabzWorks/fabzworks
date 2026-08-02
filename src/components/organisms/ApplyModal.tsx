@@ -6,11 +6,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import type { JobOpening } from "@/types";
 import Badge from "@/components/atoms/Badge";
+import { useBi } from "@/components/atoms/Bi";
+import { ui } from "@/lib/i18n";
 import ApplyForm from "./ApplyForm";
 
 export default function ApplyModal({ job }: { job: JobOpening }) {
   const router = useRouter();
   const close = () => router.back();
+  const t = useBi();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
@@ -43,16 +46,16 @@ export default function ApplyModal({ job }: { job: JobOpening }) {
           <button
             onClick={close}
             aria-label="Close"
-            className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+            className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)] rtl:right-auto rtl:left-5"
           >
             <X size={16} />
           </button>
-          <Badge>{job.department}</Badge>
+          <Badge>{t(job.department)}</Badge>
           <h2 className="mt-3 text-xl font-bold text-[var(--text)]">
-            Apply for {job.title}
+            {t(ui.applyFor)} {t(job.title)}
           </h2>
           <p className="mt-1 text-sm text-[var(--text-muted)]">
-            {job.location} · {job.type}
+            {t(job.location)} · {t(job.type)}
           </p>
           <div className="mt-6">
             <ApplyForm job={job} />

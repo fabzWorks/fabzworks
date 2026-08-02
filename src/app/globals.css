@@ -181,3 +181,31 @@ h1, h2, h3, h4, h5, h6 {
 .text-balance {
   text-wrap: balance;
 }
+
+/* ---------- Urdu / RTL support ---------- */
+.font-urdu,
+.font-urdu * {
+  font-family: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noto Sans Arabic",
+    "Segoe UI", Tahoma, sans-serif;
+}
+
+.font-urdu {
+  line-height: 2.1;
+}
+
+[dir="rtl"] .ltr-preserve {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Keep numerals, emails, URLs, and code left-to-right even in RTL mode */
+[dir="rtl"] input,
+[dir="rtl"] textarea {
+  text-align: right;
+}
+[dir="rtl"] input[type="email"],
+[dir="rtl"] input[type="tel"],
+[dir="rtl"] input[type="url"] {
+  direction: ltr;
+  text-align: left;
+}

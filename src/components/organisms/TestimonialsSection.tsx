@@ -5,7 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import Container from "@/components/atoms/Container";
 import SectionHeading from "@/components/atoms/SectionHeading";
+import Bi from "@/components/atoms/Bi";
 import { testimonials } from "@/data/testimonials";
+import { ui } from "@/lib/i18n";
 
 export default function TestimonialsSection() {
   const [index, setIndex] = useState(0);
@@ -18,7 +20,7 @@ export default function TestimonialsSection() {
   return (
     <section className="py-20 sm:py-28">
       <Container>
-        <SectionHeading eyebrow="Client Voices" title="What partners say after launch" />
+        <SectionHeading eyebrow={<Bi t={ui.testimonialsEyebrow} />} title={<Bi t={ui.testimonialsHomeTitle} />} />
 
         <div className="mx-auto mt-14 max-w-2xl">
           <div className="card-surface relative rounded-3xl border p-8 sm:p-10">
@@ -32,20 +34,19 @@ export default function TestimonialsSection() {
                 transition={{ duration: 0.3 }}
               >
                 <p className="mt-5 text-lg leading-relaxed text-[var(--text)] text-balance">
-                  “{t.text}”
+                  &ldquo;<Bi t={t.text} />&rdquo;
                 </p>
                 <div className="mt-7 flex items-center gap-3">
-                  <span
-                    className={`flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br ${t.avatarGradient} text-sm font-bold text-white`}
-                  >
-                    {t.avatar}
+                  <span className="h-11 w-11 shrink-0 overflow-hidden rounded-full ring-1 ring-[var(--border)]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={t.photo} alt={t.name} className="h-full w-full object-cover" loading="lazy" />
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-[var(--text)]">
                       {t.name}
                     </p>
                     <p className="text-xs text-[var(--text-faint)]">
-                      {t.role}, {t.company}
+                      <Bi t={t.role} />, {t.company}
                     </p>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/molecules/PageHero";
 import CareersBrowser from "@/components/organisms/CareersBrowser";
+import { ui } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -11,9 +12,9 @@ export default function CareersPage() {
   return (
     <>
       <PageHero
-        eyebrow="Careers"
-        title="Build software that businesses actually rely on"
-        description="We're a small, senior team that cares about doing the work right. Here's what's open right now."
+        eyebrow={ui.careersEyebrow}
+        title={ui.careersTitle}
+        description={ui.careersDesc}
       />
       <CareersBrowser />
     </>

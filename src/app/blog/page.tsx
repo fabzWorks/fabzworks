@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/molecules/PageHero";
 import BlogBrowser from "@/components/organisms/BlogBrowser";
+import { ui } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -11,9 +12,9 @@ export default function BlogPage() {
   return (
     <>
       <PageHero
-        eyebrow="Blog"
-        title="Notes from inside our projects"
-        description="Short, honest write-ups on ERP rollouts, AI integrations, automation, and everything in between."
+        eyebrow={ui.blogEyebrow}
+        title={ui.blogPageTitle}
+        description={ui.blogPageDesc}
       />
       <BlogBrowser />
     </>

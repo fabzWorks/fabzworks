@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import type { JobOpening, ApplyFormState } from "@/types";
 import { Button } from "@/components/atoms/Button";
+import Bi, { useBi } from "@/components/atoms/Bi";
+import { ui } from "@/lib/i18n";
 import { useToast } from "@/lib/toast-context";
 
 const emptyForm: ApplyFormState = {
@@ -24,15 +26,15 @@ const emptyForm: ApplyFormState = {
 
 function validate(form: ApplyFormState) {
   const errors: Partial<Record<keyof ApplyFormState, string>> = {};
-  if (!form.fullName.trim()) errors.fullName = "Full name is required.";
+  if (!form.fullName.trim()) errors.fullName = "required";
   if (!form.email.trim()) {
-    errors.email = "Email is required.";
+    errors.email = "required";
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-    errors.email = "Enter a valid email address.";
+    errors.email = "invalid";
   }
-  if (!form.phone.trim()) errors.phone = "Phone number is required.";
+  if (!form.phone.trim()) errors.phone = "required";
   if (!form.coverMessage.trim() || form.coverMessage.trim().length < 20) {
-    errors.coverMessage = "Tell us a little more — at least 20 characters.";
+    errors.coverMessage = "short";
   }
   return errors;
 }
@@ -42,6 +44,7 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
   const [errors, setErrors] = useState<Partial<Record<keyof ApplyFormState, string>>>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const { push } = useToast();
+  const t = useBi();
 
   const update = (field: keyof ApplyFormState, value: string) => {
     setForm((f) => ({ ...f, [field]: value }));
@@ -61,9 +64,6 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
 
     setStatus("submitting");
     try {
-      // Static-frontend demo: simulates a network request. Replace this
-      // block with a real fetch()/server action call to your ATS or API.
-      // See docs/PROJECT_GUIDE.md for exactly where to wire this up.
       await new Promise((resolve, reject) =>
         setTimeout(() => {
           if (Math.random() < 0.08) reject(new Error("network"));
@@ -71,10 +71,10 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
         }, 1400)
       );
       setStatus("success");
-      push(`Application received for ${job.title}.`, "success");
+      push(`${t(ui.applicationSent)} — ${t(job.title)}`, "success");
     } catch {
       setStatus("error");
-      push("Something went wrong sending your application.", "error");
+      push(t(ui.couldntSendApplication), "error");
     }
   };
 
@@ -89,12 +89,10 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
           <CheckCircle2 size={32} className="text-emerald-500" />
         </motion.div>
         <h3 className="mt-5 text-lg font-semibold text-[var(--text)]">
-          Application sent
+          <Bi t={ui.applicationSent} />
         </h3>
         <p className="mt-2 max-w-sm text-sm leading-relaxed text-[var(--text-muted)]">
-          Thanks for applying to <strong>{job.title}</strong>. Our team
-          reviews every application personally — expect to hear from us
-          within 5 business days.
+          <Bi t={ui.applicationSentDesc} />
         </p>
         <Button
           variant="secondary"
@@ -104,7 +102,7 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
             setStatus("idle");
           }}
         >
-          Submit another application
+          <Bi t={ui.submitAnother} />
         </Button>
       </div>
     );
@@ -116,17 +114,15 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
         <div className="flex items-start gap-2.5 rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 text-sm text-rose-500">
           <AlertCircle size={17} className="mt-0.5 shrink-0" />
           <div>
-            <p className="font-medium">We couldn&apos;t send your application.</p>
-            <p className="mt-0.5 text-rose-500/80">
-              Please check your connection and try again.
-            </p>
+            <p className="font-medium"><Bi t={ui.couldntSendApplication} /></p>
+            <p className="mt-0.5 text-rose-500/80"><Bi t={ui.checkConnectionRetry} /></p>
           </div>
         </div>
       )}
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <Field
-          label="Full name"
+          label={ui.fullName}
           error={errors.fullName}
           input={
             <input
@@ -139,7 +135,7 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
           }
         />
         <Field
-          label="Email address"
+          label={ui.emailAddress}
           error={errors.email}
           input={
             <input
@@ -147,13 +143,13 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
               value={form.email}
               onChange={(e) => update("email", e.target.value)}
               placeholder="jane@email.com"
-              className={inputClass(!!errors.email)}
+              className={inputClass(!!errors.email) + " ltr-preserve"}
               autoComplete="email"
             />
           }
         />
         <Field
-          label="Phone number"
+          label={ui.phoneNumber}
           error={errors.phone}
           input={
             <input
@@ -161,20 +157,19 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
               value={form.phone}
               onChange={(e) => update("phone", e.target.value)}
               placeholder="+92 3XX XXXXXXX"
-              className={inputClass(!!errors.phone)}
+              className={inputClass(!!errors.phone) + " ltr-preserve"}
               autoComplete="tel"
             />
           }
         />
         <Field
-          label="Portfolio / LinkedIn (optional)"
-          error={errors.portfolio}
+          label={ui.portfolioLinkOptional}
           input={
             <input
               value={form.portfolio}
               onChange={(e) => update("portfolio", e.target.value)}
               placeholder="https://"
-              className={inputClass(false)}
+              className={inputClass(false) + " ltr-preserve"}
             />
           }
         />
@@ -182,12 +177,12 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
 
       <div>
         <label className="mb-1.5 block text-sm font-medium text-[var(--text)]">
-          Resume / CV
+          <Bi t={ui.resumeCv} />
         </label>
         <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-dashed border-[var(--border-strong)] px-4 py-4 text-sm text-[var(--text-muted)] transition-colors hover:border-[var(--accent)]">
           <Upload size={17} className="shrink-0 text-[var(--accent)]" />
           <span className="flex-1 truncate">
-            {form.resumeFileName || "Click to upload PDF, DOC, or DOCX (max 5MB)"}
+            {form.resumeFileName || t(ui.uploadResumeHint)}
           </span>
           {form.resumeFileName && (
             <FileText size={16} className="shrink-0 text-[var(--text-faint)]" />
@@ -195,18 +190,18 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
           <input type="file" className="hidden" accept=".pdf,.doc,.docx" onChange={handleFile} />
         </label>
         <p className="mt-1.5 text-xs text-[var(--text-faint)]">
-          This is a placeholder upload in the demo — no file leaves your device.
+          <Bi t={ui.demoUploadNote} />
         </p>
       </div>
 
       <Field
-        label="Cover message"
+        label={ui.coverMessage}
         error={errors.coverMessage}
         input={
           <textarea
             value={form.coverMessage}
             onChange={(e) => update("coverMessage", e.target.value)}
-            placeholder="Tell us why you're a great fit for this role..."
+            placeholder={t(ui.coverMessagePlaceholder)}
             rows={5}
             className={inputClass(!!errors.coverMessage)}
           />
@@ -221,7 +216,7 @@ export default function ApplyForm({ job }: { job: JobOpening }) {
         icon={status === "submitting" ? <Loader2 size={16} className="animate-spin" /> : undefined}
         iconPosition="left"
       >
-        {status === "submitting" ? "Submitting application..." : `Apply for ${job.title}`}
+        {status === "submitting" ? t(ui.submittingApplication) : `${t(ui.applyFor)} ${t(job.title)}`}
       </Button>
     </form>
   );
@@ -238,14 +233,14 @@ function Field({
   input,
   error,
 }: {
-  label: string;
+  label: { en: string; ur: string };
   input: React.ReactNode;
   error?: string;
 }) {
   return (
     <div>
       <label className="mb-1.5 block text-sm font-medium text-[var(--text)]">
-        {label}
+        <Bi t={label} />
       </label>
       {input}
       <AnimatePresence>
@@ -256,7 +251,7 @@ function Field({
             exit={{ opacity: 0, height: 0 }}
             className="mt-1.5 flex items-center gap-1 text-xs text-rose-500"
           >
-            <AlertCircle size={12} /> {error}
+            <AlertCircle size={12} /> {error === "required" ? "Required field / لازمی خانہ" : error === "invalid" ? "Invalid email / غلط ای میل" : "Please add more detail / مزید تفصیل شامل کریں"}
           </motion.p>
         )}
       </AnimatePresence>

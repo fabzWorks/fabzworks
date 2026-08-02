@@ -3,8 +3,10 @@ import Link from "next/link";
 import Container from "@/components/atoms/Container";
 import PageHero from "@/components/molecules/PageHero";
 import Badge from "@/components/atoms/Badge";
+import Bi from "@/components/atoms/Bi";
 import { ArrowUpRight } from "lucide-react";
 import { caseStudies } from "@/data/case-studies";
+import { ui } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Case Studies",
@@ -16,9 +18,9 @@ export default function CaseStudiesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Case Studies"
-        title="Real systems, real operational change"
-        description="Every project below started as a discovery conversation like the one we'd have with you."
+        eyebrow={ui.caseStudiesEyebrow}
+        title={ui.caseStudiesPageTitle}
+        description={ui.caseStudiesPageDesc}
       />
       <section className="py-14 sm:py-20">
         <Container>
@@ -33,29 +35,29 @@ export default function CaseStudiesPage() {
                   <span className="text-3xl">{cs.cover}</span>
                   <ArrowUpRight
                     size={18}
-                    className="text-[var(--text-faint)] transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--accent)]"
+                    className="text-[var(--text-faint)] transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--accent)] rtl:rotate-90"
                   />
                 </div>
                 <div className="mt-4 flex items-center gap-2">
-                  <Badge variant="outline">{cs.industry}</Badge>
+                  <Badge variant="outline"><Bi t={cs.industry} /></Badge>
                   <span className="text-xs text-[var(--text-faint)]">
                     {cs.client}
                   </span>
                 </div>
                 <h3 className="mt-3 text-lg font-semibold leading-snug text-[var(--text)]">
-                  {cs.title}
+                  <Bi t={cs.title} />
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
-                  {cs.summary}
+                  <Bi t={cs.summary} />
                 </p>
                 <div className="mt-6 flex gap-6 border-t border-[var(--border)] pt-5">
                   {cs.results.map((r) => (
-                    <div key={r.label}>
+                    <div key={r.label.en}>
                       <p className="font-[family-name:var(--font-display)] text-xl font-bold text-[var(--accent)]">
                         {r.value}
                       </p>
                       <p className="text-[11px] text-[var(--text-faint)]">
-                        {r.label}
+                        <Bi t={r.label} />
                       </p>
                     </div>
                   ))}

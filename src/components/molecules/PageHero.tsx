@@ -1,5 +1,7 @@
 import Container from "@/components/atoms/Container";
 import Badge from "@/components/atoms/Badge";
+import Bi from "@/components/atoms/Bi";
+import type { Bi as BiType } from "@/types";
 import type { ReactNode } from "react";
 
 export default function PageHero({
@@ -8,9 +10,9 @@ export default function PageHero({
   description,
   children,
 }: {
-  eyebrow?: string;
-  title: string;
-  description?: string;
+  eyebrow?: BiType;
+  title: BiType;
+  description?: BiType;
   children?: ReactNode;
 }) {
   return (
@@ -22,14 +24,16 @@ export default function PageHero({
       />
       <Container className="relative text-center">
         {eyebrow && (
-          <Badge className="mb-5 mx-auto w-fit">{eyebrow}</Badge>
+          <Badge className="mb-5 mx-auto w-fit">
+            <Bi t={eyebrow} />
+          </Badge>
         )}
         <h1 className="mx-auto max-w-2xl text-balance text-3xl font-bold text-[var(--text)] sm:text-4xl lg:text-[2.75rem]">
-          {title}
+          <Bi t={title} />
         </h1>
         {description && (
           <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--text-muted)]">
-            {description}
+            <Bi t={description} />
           </p>
         )}
         {children}

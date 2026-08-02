@@ -1,12 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 import Container from "@/components/atoms/Container";
 import { LinkButton } from "@/components/atoms/Button";
 import CascadeMark from "@/components/atoms/CascadeMark";
+import Bi from "@/components/atoms/Bi";
+import { ui } from "@/lib/i18n";
+import { useLanguage } from "@/lib/language-context";
 
 export default function CtaSection() {
+  const { lang } = useLanguage();
+  const ArrowIcon = lang === "ur" ? ArrowLeft : ArrowRight;
   return (
     <section className="py-20 sm:py-24">
       <Container>
@@ -19,18 +24,17 @@ export default function CtaSection() {
         >
           <CascadeMark className="mx-auto mb-6 justify-center" />
           <h2 className="mx-auto max-w-xl text-balance text-3xl font-bold text-[var(--text)] sm:text-4xl">
-            Ready to replace the spreadsheets for good?
+            <Bi t={ui.ctaTitle} />
           </h2>
           <p className="mx-auto mt-4 max-w-md text-[15px] text-[var(--text-muted)]">
-            Tell us what&apos;s slowing your team down. We&apos;ll come back with a
-            clear plan, not a sales pitch.
+            <Bi t={ui.ctaDesc} />
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <LinkButton href="/contact" size="lg" icon={<ArrowRight size={17} />}>
-              Start Your Project
+            <LinkButton href="/contact" size="lg" icon={<ArrowIcon size={17} />}>
+              <Bi t={ui.startProject} />
             </LinkButton>
             <LinkButton href="/services" variant="outline" size="lg">
-              Explore Services
+              <Bi t={ui.exploreServices} />
             </LinkButton>
           </div>
         </motion.div>

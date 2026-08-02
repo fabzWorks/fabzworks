@@ -3,19 +3,24 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mail, Loader2, CheckCircle2, ArrowLeft } from "lucide-react";
+import { Mail, Loader2, CheckCircle2, ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/atoms/Button";
+import Bi, { useBi } from "@/components/atoms/Bi";
+import { ui } from "@/lib/i18n";
+import { useLanguage } from "@/lib/language-context";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const t = useBi();
+  const { lang } = useLanguage();
+  const BackIcon = lang === "ur" ? ArrowRight : ArrowLeft;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!email) return;
     setLoading(true);
-    // Demo flow — replace with a real password-reset API call.
     await new Promise((r) => setTimeout(r, 1100));
     setLoading(false);
     setSent(true);
@@ -31,16 +36,19 @@ export default function ForgotPasswordPage() {
         >
           <CheckCircle2 size={30} className="text-emerald-500" />
         </motion.div>
-        <h1 className="mt-5 text-xl font-bold text-[var(--text)]">Check your inbox</h1>
+        <h1 className="mt-5 text-xl font-bold text-[var(--text)]"><Bi t={ui.checkInbox} /></h1>
         <p className="mt-2 max-w-xs text-sm leading-relaxed text-[var(--text-muted)]">
-          If an account exists for <strong>{email}</strong>, we&apos;ve sent a
-          link to reset your password.
+          {lang === "ur" ? (
+            <>اگر <strong className="ltr-preserve">{email}</strong> کے لیے کوئی اکاؤنٹ موجود ہے تو ہم نے پاس ورڈ ری سیٹ کرنے کا لنک بھیج دیا ہے۔</>
+          ) : (
+            <>If an account exists for <strong className="ltr-preserve">{email}</strong>, we&apos;ve sent a link to reset your password.</>
+          )}
         </p>
         <Link
           href="/login"
           className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent)]"
         >
-          <ArrowLeft size={14} /> Back to log in
+          <BackIcon size={14} /> <Bi t={ui.backToLogin} />
         </Link>
       </div>
     );
@@ -48,18 +56,16 @@ export default function ForgotPasswordPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[var(--text)]">Reset your password</h1>
-      <p className="mt-2 text-sm text-[var(--text-muted)]">
-        Enter your email and we&apos;ll send you a link to get back in.
-      </p>
+      <h1 className="text-2xl font-bold text-[var(--text)]"><Bi t={ui.resetPassword} /></h1>
+      <p className="mt-2 text-sm text-[var(--text-muted)]"><Bi t={ui.resetPasswordDesc} /></p>
 
       <form onSubmit={handleSubmit} noValidate className="mt-8 space-y-5">
         <div>
           <label className="mb-1.5 block text-sm font-medium text-[var(--text)]">
-            Email address
+            <Bi t={ui.emailAddress} />
           </label>
           <div className="relative">
-            <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-faint)]" />
+            <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-faint)] rtl:left-auto rtl:right-3.5" />
             <input
               type="email"
               required
@@ -67,7 +73,7 @@ export default function ForgotPasswordPage() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@company.com"
               autoComplete="email"
-              className="w-full rounded-xl border border-[var(--border-strong)] bg-[var(--surface)] py-2.5 pl-10 pr-4 text-sm text-[var(--text)] outline-none transition-colors focus:border-[var(--accent)]"
+              className="ltr-preserve w-full rounded-xl border border-[var(--border-strong)] bg-[var(--surface)] py-2.5 pl-10 pr-4 text-sm text-[var(--text)] outline-none transition-colors focus:border-[var(--accent)]"
             />
           </div>
         </div>
@@ -80,7 +86,7 @@ export default function ForgotPasswordPage() {
           icon={loading ? <Loader2 size={16} className="animate-spin" /> : undefined}
           iconPosition="left"
         >
-          {loading ? "Sending link..." : "Send Reset Link"}
+          {loading ? t(ui.sendingLink) : t(ui.sendResetLink)}
         </Button>
       </form>
 
@@ -88,7 +94,7 @@ export default function ForgotPasswordPage() {
         href="/login"
         className="mt-6 flex items-center justify-center gap-1.5 text-sm font-medium text-[var(--text-muted)] hover:text-[var(--accent)]"
       >
-        <ArrowLeft size={14} /> Back to log in
+        <BackIcon size={14} /> <Bi t={ui.backToLogin} />
       </Link>
     </div>
   );

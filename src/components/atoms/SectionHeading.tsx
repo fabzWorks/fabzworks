@@ -1,4 +1,5 @@
 import Badge from "./Badge";
+import type { ReactNode } from "react";
 
 export default function SectionHeading({
   eyebrow,
@@ -6,9 +7,9 @@ export default function SectionHeading({
   description,
   align = "center",
 }: {
-  eyebrow?: string;
-  title: string;
-  description?: string;
+  eyebrow?: ReactNode;
+  title: ReactNode;
+  description?: ReactNode;
   align?: "center" | "left";
 }) {
   return (
@@ -16,7 +17,7 @@ export default function SectionHeading({
       className={
         align === "center"
           ? "mx-auto max-w-2xl text-center"
-          : "max-w-2xl text-left"
+          : "max-w-2xl text-left rtl:text-right"
       }
     >
       {eyebrow && <Badge className="mb-4">{eyebrow}</Badge>}

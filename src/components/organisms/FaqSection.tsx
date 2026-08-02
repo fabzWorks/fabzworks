@@ -5,7 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
 import Container from "@/components/atoms/Container";
 import SectionHeading from "@/components/atoms/SectionHeading";
+import Bi from "@/components/atoms/Bi";
 import { faqs } from "@/data/faqs";
+import { ui } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export default function FaqSection() {
@@ -14,17 +16,17 @@ export default function FaqSection() {
   return (
     <section className="py-20 sm:py-28 bg-[var(--bg-elevated)] border-y border-[var(--border)]">
       <Container>
-        <SectionHeading eyebrow="FAQ" title="Questions we hear the most" />
+        <SectionHeading eyebrow={<Bi t={ui.faqEyebrow} />} title={<Bi t={ui.faqTitle} />} />
         <div className="mx-auto mt-12 max-w-2xl divide-y divide-[var(--border)]">
           {faqs.map((f, i) => (
-            <div key={f.q} className="py-2">
+            <div key={f.q.en} className="py-2">
               <button
                 onClick={() => setOpen(open === i ? null : i)}
                 aria-expanded={open === i}
-                className="flex w-full items-center justify-between gap-4 py-4 text-left"
+                className="flex w-full items-center justify-between gap-4 py-4 text-left rtl:text-right"
               >
                 <span className="text-[15px] font-medium text-[var(--text)]">
-                  {f.q}
+                  <Bi t={f.q} />
                 </span>
                 <Plus
                   size={18}
@@ -44,7 +46,7 @@ export default function FaqSection() {
                     className="overflow-hidden"
                   >
                     <p className="pb-5 text-sm leading-relaxed text-[var(--text-muted)]">
-                      {f.a}
+                      <Bi t={f.a} />
                     </p>
                   </motion.div>
                 )}

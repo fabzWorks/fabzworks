@@ -14,45 +14,28 @@ export default function Logo({
   return (
     <Link
       href="/"
-      className={cn("flex items-center gap-2.5 shrink-0 group perspective", className)}
+      className={cn("flex items-center gap-2.5 shrink-0 group", className)}
       aria-label="FabzWorks — Home"
     >
-      {/* 3D Flipping Container */}
       <span
-        className="relative shrink-0 rounded-xl ring-1 ring-border transition-transform duration-700 ease-out group-hover:transform-[rotateY(180deg)] transform-3d"
+        className="relative shrink-0 rounded-xl overflow-hidden ring-1 ring-[var(--border)] transition-transform duration-300 group-hover:scale-105"
         style={{ width: size, height: size }}
       >
-        {/* Front Side of the Logo */}
-        <span className="absolute inset-0 overflow-hidden rounded-xl backface-hidden">
-          <Image
-            src="/images/logo.png"
-            alt="FabzWorks logo"
-            fill
-            sizes={`${size}px`}
-            className="object-cover"
-            priority
-          />
-        </span>
-
-        {/* Back Side of the Logo (Flipped View) */}
-        <span className="absolute inset-0 overflow-hidden rounded-xl backface-hidden transform-[rotateY(180deg)]">
-          <Image
-            src="/images/logo.png"
-            alt="FabzWorks logo flipped"
-            fill
-            sizes={`${size}px`}
-            className="object-cover"
-            priority
-          />
-        </span>
+        <Image
+          src="/images/logo.png"
+          alt="FabzWorks logo"
+          fill
+          sizes={`${size}px`}
+          className="object-cover"
+          priority
+        />
       </span>
-
       {showWordmark && (
         <span className="leading-tight">
-          <span className="block font-display font-bold text-[15px] sm:text-base tracking-tight text-text">
-            Fabz<span className="text-accent">Works</span>
+          <span className="block font-[family-name:var(--font-display)] font-bold text-[15px] sm:text-base tracking-tight text-[var(--text)]">
+            Fabz<span className="text-[var(--accent)]">Works</span>
           </span>
-          <span className="hidden sm:block text-[9px] uppercase tracking-[0.16em] text-text-faint">
+          <span className="hidden sm:block text-[9px] uppercase tracking-[0.16em] text-[var(--text-faint)]">
             Smart Software Solutions
           </span>
         </span>

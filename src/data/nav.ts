@@ -1,43 +1,48 @@
 import type { NavItem, SocialLink } from "@/types";
 
 export const navLinks: NavItem[] = [
-  { href: "/", label: "Home" },
+  { href: "/", label: { en: "Home", ur: "ہوم" } },
   {
     href: "/services",
-    label: "Services",
+    label: { en: "Services", ur: "سروسز" },
     dropdown: [
-      { href: "/services?cat=erp", icon: "🏗️", label: "ERP Solutions" },
-      { href: "/services?cat=ai", icon: "🤖", label: "AI & Automation" },
-      { href: "/services?cat=web", icon: "🌐", label: "Web Development" },
-      { href: "/services?cat=mobile", icon: "📱", label: "Mobile Apps" },
-      { href: "/services?cat=saas", icon: "☁️", label: "SaaS Development" },
-      { href: "/services?cat=design", icon: "🎨", label: "UI/UX Design" },
+      { href: "/services?cat=erp", icon: "🏗️", label: { en: "ERP Solutions", ur: "ای آر پی حل" } },
+      { href: "/services?cat=ai", icon: "🤖", label: { en: "AI & Automation", ur: "اے آئی اور آٹومیشن" } },
+      { href: "/services?cat=web", icon: "🌐", label: { en: "Web Development", ur: "ویب ڈویلپمنٹ" } },
+      { href: "/services?cat=mobile", icon: "📱", label: { en: "Mobile Apps", ur: "موبائل ایپس" } },
+      { href: "/services?cat=custom", icon: "🛠️", label: { en: "Custom Software", ur: "حسبِ ضرورت سافٹ ویئر" } },
+      { href: "/services?cat=automation", icon: "⚡", label: { en: "Automation", ur: "آٹومیشن" } },
     ],
   },
+  { href: "/portfolio", label: { en: "Portfolio", ur: "پورٹ فولیو" } },
   {
     href: "/about",
-    label: "Company",
+    label: { en: "Company", ur: "کمپنی" },
     dropdown: [
-      { href: "/about", icon: "🏢", label: "About Us" },
-      { href: "/team", icon: "👥", label: "Our Team" },
-      { href: "/case-studies", icon: "📊", label: "Case Studies" },
-      { href: "/careers", icon: "💼", label: "Careers" },
+      { href: "/about", icon: "🏢", label: { en: "About Us", ur: "ہمارے بارے میں" } },
+      { href: "/team", icon: "👥", label: { en: "Our Team", ur: "ہماری ٹیم" } },
+      { href: "/case-studies", icon: "📊", label: { en: "Case Studies", ur: "کیس اسٹڈیز" } },
+      { href: "/testimonials", icon: "💬", label: { en: "Testimonials", ur: "آراء" } },
+      { href: "/careers", icon: "💼", label: { en: "Careers", ur: "کیریئر" } },
     ],
   },
-  { href: "/case-studies", label: "Case Studies" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
+  { href: "/medical-billing", label: { en: "Medical Billing", ur: "میڈیکل بلنگ" } },
+  { href: "/blog", label: { en: "Blog", ur: "بلاگ" } },
+  { href: "/contact", label: { en: "Contact", ur: "رابطہ" } },
 ];
 
 export const mobileNavLinks = [
-  { href: "/", icon: "🏠", label: "Home" },
-  { href: "/services", icon: "⚙️", label: "Services" },
-  { href: "/about", icon: "🏢", label: "About" },
-  { href: "/team", icon: "👥", label: "Team" },
-  { href: "/case-studies", icon: "📊", label: "Case Studies" },
-  { href: "/blog", icon: "📝", label: "Blog" },
-  { href: "/careers", icon: "💼", label: "Careers" },
-  { href: "/contact", icon: "📞", label: "Contact" },
+  { href: "/", icon: "🏠", label: { en: "Home", ur: "ہوم" } },
+  { href: "/services", icon: "⚙️", label: { en: "Services", ur: "سروسز" } },
+  { href: "/portfolio", icon: "🖼️", label: { en: "Portfolio", ur: "پورٹ فولیو" } },
+  { href: "/medical-billing", icon: "🩺", label: { en: "Medical Billing", ur: "میڈیکل بلنگ" } },
+  { href: "/about", icon: "🏢", label: { en: "About", ur: "ہمارے بارے میں" } },
+  { href: "/team", icon: "👥", label: { en: "Team", ur: "ٹیم" } },
+  { href: "/case-studies", icon: "📊", label: { en: "Case Studies", ur: "کیس اسٹڈیز" } },
+  { href: "/testimonials", icon: "💬", label: { en: "Testimonials", ur: "آراء" } },
+  { href: "/blog", icon: "📝", label: { en: "Blog", ur: "بلاگ" } },
+  { href: "/careers", icon: "💼", label: { en: "Careers", ur: "کیریئر" } },
+  { href: "/contact", icon: "📞", label: { en: "Contact", ur: "رابطہ" } },
 ];
 
 export const socialLinks: SocialLink[] = [
@@ -47,11 +52,14 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const siteMap = [
-  { href: "/services", icon: "🏗️", label: "Services", desc: "ERP, Web, Mobile, SaaS, Marketing & Design" },
-  { href: "/case-studies", icon: "📊", label: "Case Studies", desc: "Real systems we've designed & shipped" },
-  { href: "/about", icon: "🏢", label: "About Us", desc: "Who we are & what drives us" },
-  { href: "/team", icon: "👥", label: "Our Team", desc: "Meet the people behind FabzWorks" },
-  { href: "/blog", icon: "📝", label: "Blog", desc: "Insights & knowledge base" },
-  { href: "/careers", icon: "🚀", label: "Careers", desc: "Join our team" },
-  { href: "/contact", icon: "📞", label: "Contact", desc: "Start your project today" },
+  { href: "/services", icon: "🏗️", label: { en: "Services", ur: "سروسز" }, desc: { en: "ERP, Web, Mobile, AI & Automation", ur: "ای آر پی، ویب، موبائل، اے آئی اور آٹومیشن" } },
+  { href: "/portfolio", icon: "🖼️", label: { en: "Portfolio", ur: "پورٹ فولیو" }, desc: { en: "Web, mobile & AI projects we've shipped", ur: "ویب، موبائل اور اے آئی پراجیکٹس" } },
+  { href: "/medical-billing", icon: "🩺", label: { en: "Medical Billing", ur: "میڈیکل بلنگ" }, desc: { en: "RCM & claims processing services", ur: "آر سی ایم اور کلیمز پروسیسنگ سروسز" } },
+  { href: "/case-studies", icon: "📊", label: { en: "Case Studies", ur: "کیس اسٹڈیز" }, desc: { en: "Real systems we've designed & shipped", ur: "حقیقی نظام جو ہم نے تیار کیے" } },
+  { href: "/about", icon: "🏢", label: { en: "About Us", ur: "ہمارے بارے میں" }, desc: { en: "Who we are & what drives us", ur: "ہم کون ہیں اور ہمارا مقصد کیا ہے" } },
+  { href: "/team", icon: "👥", label: { en: "Our Team", ur: "ہماری ٹیم" }, desc: { en: "Meet the people behind FabzWorks", ur: "فیبز ورکس کے پیچھے موجود لوگوں سے ملیں" } },
+  { href: "/testimonials", icon: "💬", label: { en: "Testimonials", ur: "آراء" }, desc: { en: "What our clients say about working with us", ur: "کلائنٹس ہمارے ساتھ کام کرنے کے بارے میں کیا کہتے ہیں" } },
+  { href: "/blog", icon: "📝", label: { en: "Blog", ur: "بلاگ" }, desc: { en: "Insights & knowledge base", ur: "بصیرت اور معلوماتی مضامین" } },
+  { href: "/careers", icon: "🚀", label: { en: "Careers", ur: "کیریئر" }, desc: { en: "Join our team", ur: "ہماری ٹیم میں شامل ہوں" } },
+  { href: "/contact", icon: "📞", label: { en: "Contact", ur: "رابطہ" }, desc: { en: "Start your project today", ur: "آج ہی اپنا منصوبہ شروع کریں" } },
 ];

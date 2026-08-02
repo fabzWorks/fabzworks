@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Container from "@/components/atoms/Container";
 import EmptyState from "@/components/molecules/EmptyState";
+import Bi from "@/components/atoms/Bi";
 import { cn } from "@/lib/utils";
 import { services, serviceCategories } from "@/data/services";
 
@@ -32,17 +33,14 @@ function ServicesBrowserInner() {
                   : "border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--border-strong)]"
               )}
             >
-              {c.label}
+              <Bi t={c.label} />
             </button>
           ))}
         </div>
 
         {filtered.length === 0 ? (
           <div className="mt-14">
-            <EmptyState
-              title="No services in this category"
-              description="Try another category, or reach out and tell us what you need."
-            />
+            <EmptyState />
           </div>
         ) : (
           <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -63,22 +61,22 @@ function ServicesBrowserInner() {
                     </span>
                     <ArrowUpRight
                       size={18}
-                      className="text-[var(--text-faint)] transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--accent)]"
+                      className="text-[var(--text-faint)] transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--accent)] rtl:rotate-90"
                     />
                   </div>
                   <h3 className="mt-5 text-lg font-semibold text-[var(--text)]">
-                    {s.title}
+                    <Bi t={s.title} />
                   </h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--text-muted)]">
-                    {s.desc}
+                    <Bi t={s.desc} />
                   </p>
                   <div className="mt-5 flex flex-wrap gap-1.5">
                     {s.chips.map((c) => (
                       <span
-                        key={c}
+                        key={c.en}
                         className="rounded-full border border-[var(--border)] px-2.5 py-1 text-[11px] text-[var(--text-faint)]"
                       >
-                        {c}
+                        <Bi t={c} />
                       </span>
                     ))}
                   </div>

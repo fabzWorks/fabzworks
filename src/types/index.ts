@@ -1,12 +1,17 @@
+export interface Bi {
+  en: string;
+  ur: string;
+}
+
 export interface NavDropdownItem {
   href: string;
-  label: string;
+  label: Bi;
   icon?: string;
 }
 
 export interface NavItem {
   href: string;
-  label: string;
+  label: Bi;
   dropdown?: NavDropdownItem[];
 }
 
@@ -19,14 +24,13 @@ export interface SocialLink {
 export interface TeamMember {
   slug: string;
   name: string;
-  role: string;
-  initials: string;
-  gradient: string;
-  bio: string;
-  longBio: string;
+  role: Bi;
+  photo: string;
+  bio: Bi;
+  longBio: Bi;
   skills: string[];
-  experience: string;
-  location: string;
+  experience: Bi;
+  location: Bi;
   email: string;
   socials: { title: string; href: string; icon: "linkedin" | "github" | "dribbble" | "twitter" }[];
 }
@@ -35,76 +39,79 @@ export interface ServiceItem {
   slug: string;
   cat: string;
   icon: string;
-  title: string;
-  desc: string;
-  chips: string[];
-  overview: string;
-  deliverables: string[];
-  process: string[];
-  faqs: { q: string; a: string }[];
+  title: Bi;
+  desc: Bi;
+  chips: Bi[];
+  overview: Bi;
+  deliverables: Bi[];
+  process: Bi[];
+  faqs: { q: Bi; a: Bi }[];
 }
 
 export interface CaseStudy {
   slug: string;
-  industry: string;
+  industry: Bi;
   client: string;
-  title: string;
-  summary: string;
+  title: Bi;
+  summary: Bi;
   cover: string;
-  challenge: string;
-  solution: string;
-  results: { label: string; value: string }[];
-  services: string[];
+  challenge: Bi;
+  solution: Bi;
+  results: { label: Bi; value: string }[];
+  services: Bi[];
   gradient: string;
 }
 
 export interface BlogPost {
   slug: string;
-  title: string;
-  excerpt: string;
-  content: string[];
-  tag: string;
+  title: Bi;
+  excerpt: Bi;
+  content: Bi[];
+  tag: Bi;
   date: string;
-  read: string;
+  read: Bi;
   author: string;
   authorInitials: string;
-  authorRole: string;
+  authorRole: Bi;
+  authorPhoto: string;
   gradient: string;
   icon: string;
+  cover: string;
 }
 
 export interface JobOpening {
   slug: string;
-  title: string;
-  department: string;
-  type: string;
-  location: string;
-  experience: string;
+  title: Bi;
+  department: Bi;
+  type: Bi;
+  location: Bi;
+  experience: Bi;
   tags: string[];
-  overview: string;
-  responsibilities: string[];
-  requirements: string[];
-  niceToHave: string[];
+  overview: Bi;
+  responsibilities: Bi[];
+  requirements: Bi[];
+  niceToHave: Bi[];
 }
 
 export interface Testimonial {
-  industry: string;
-  text: string;
+  industry: Bi;
+  text: Bi;
   avatar: string;
+  photo: string;
   avatarGradient: string;
   name: string;
-  role: string;
+  role: Bi;
   company: string;
 }
 
 export interface Faq {
-  q: string;
-  a: string;
+  q: Bi;
+  a: Bi;
 }
 
 export interface StatItem {
   value: string;
-  label: string;
+  label: Bi;
 }
 
 export interface ApplyFormState {
@@ -114,4 +121,43 @@ export interface ApplyFormState {
   portfolio: string;
   coverMessage: string;
   resumeFileName: string;
+}
+
+export type PortfolioCategory = "web" | "mobile" | "ai";
+
+export interface GalleryImage {
+  src: string;
+  label: Bi;
+}
+
+export interface PortfolioProject {
+  slug: string;
+  title: string;
+  client: string;
+  category: PortfolioCategory;
+  categoryLabel: Bi;
+  summary: Bi;
+  description: Bi;
+  icon: string;
+  gradient: string;
+  cover: string;
+  tech: string[];
+  features: Bi[];
+  demoUrl?: string;
+  githubUrl?: string;
+  storeUrl?: string;
+  gallery: GalleryImage[];
+}
+
+export interface ChatMessage {
+  id: string;
+  role: "user" | "assistant";
+  text: string;
+}
+
+export interface MedicalService {
+  slug: string;
+  icon: string;
+  title: Bi;
+  desc: Bi;
 }

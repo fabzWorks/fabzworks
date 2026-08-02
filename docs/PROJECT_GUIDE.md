@@ -204,7 +204,95 @@ rewriting the UI:
 
 ---
 
-## 10. Running the project
+## 11. Bilingual support (English / Urdu)
+
+The whole site — not just the navbar — is bilingual. Here's how it works:
+
+- **`src/lib/language-context.tsx`** manages the active language (`en` or
+  `ur`), persists it to `localStorage`, and sets `dir="rtl"` plus a
+  `.font-urdu` class on `<html>` when Urdu is active (with a no-flash
+  inline script in `app/layout.tsx`, same pattern as the theme system).
+- **`src/components/atoms/Bi.tsx`** is a tiny client component that reads
+  the active language and renders the right string:
+  ```tsx
+  <Bi t={{ en: "Hello", ur: "ہیلو" }} />
+  ```
+  Because `Bi` is itself a client component, you can use it directly
+  inside server-component pages (like every `[slug]/page.tsx`) without
+  turning the whole page into a client component.
+- **`src/lib/i18n.ts`** holds every piece of *chrome* text — buttons,
+  nav labels, form labels, page headings, empty states — as
+  `{ en, ur }` pairs under a single `ui` object.
+- **Every data file** in `src/data/` stores content fields (titles,
+  descriptions, bios, blog paragraphs, FAQ answers, etc.) as `{ en, ur }`
+  objects too, using the shared `Bi` type from `src/types/index.ts`. So
+  translating a blog post, a team bio, or a service description is a
+  data change, not a component change.
+- The **LanguageSwitcher** (`src/components/molecules/LanguageSwitcher.tsx`)
+  sits next to the theme switcher in the navbar and flips `lang` between
+  `en`/`ur` site-wide.
+- RTL styling lives in `globals.css`. Content that should *stay*
+  left-to-right even in Urdu mode (emails, phone numbers, code, URLs,
+  tech tags) is wrapped in a `.ltr-preserve` class.
+
+**To add a new language:** extend the `Bi` type to a union of your
+language codes, add the new field to every `{ en, ur }` object (yes,
+this means touching the data files), and extend `Lang` in
+`language-context.tsx`.
+
+## 12. Portfolio, real images, and the carousel
+
+- `src/data/portfolio.ts` holds 8 sample projects across Web, Mobile,
+  and AI, each with a `gallery` array of real photo URLs (via
+  `picsum.photos`, a free stock-photo placeholder service) instead of
+  fake icons — swap these `src` values for real product screenshots
+  whenever you have them.
+- `src/components/molecules/ImageFrame.tsx` wraps a photo in a browser
+  chrome bar (web/AI projects) or a phone bezel (mobile projects) purely
+  as CSS decoration around the real image.
+- `src/components/molecules/Carousel.tsx` is a small reusable,
+  auto-playing carousel (arrows + dot indicators) used on each portfolio
+  detail page to browse the full gallery.
+- Team member photos (`src/data/team.ts`) and testimonial avatars
+  (`src/data/testimonials.ts`) use `i.pravatar.cc`, a free placeholder
+  headshot service — replace with real staff/client photos when ready.
+
+## 13. CEO message & AI Capabilities sections
+
+- `src/components/organisms/CEOMessage.tsx` — a quote block styled
+  around the founder's photo, shown on the homepage and About page.
+  Edit the `ceoQuote` object in that file to change the message.
+- `src/components/organisms/AICapabilities.tsx` — an animated section
+  with a hand-built SVG "neural network" visual (pure CSS/SVG, no image
+  assets) plus four capability cards.
+
+## 14. Medical Billing (separate service line)
+
+`src/app/medical-billing/page.tsx` is a fully standalone page — its own
+nav link, its own hero, its own data file (`src/data/medical-billing.ts`)
+covering claims processing, coding, RCM, insurance verification, denial
+management, and patient billing. It doesn't share any content with the
+IT-services pages, by design, since it's presented as a distinct service
+line.
+
+## 15. WhatsApp button & AI chat widget
+
+- `src/components/organisms/WhatsAppButton.tsx` — a floating button
+  (bottom-left, bottom-right in RTL) linking to the number in
+  `src/data/contact.ts` (`contactDetails.whatsapp`), with a pulsing glow
+  and a little wiggle animation.
+- `src/components/organisms/ChatWidget.tsx` — a floating AI assistant
+  button (bottom-right, bottom-left in RTL) that opens a chat panel with
+  quick-reply suggestions, a typing indicator, and bilingual canned
+  responses keyed off simple keyword matching. **This does not call a
+  real language model** — look for the comment starting
+  `// Static-frontend AI chat widget` at the top of the file for exactly
+  where to swap `getReply()` for a real `fetch()` to your own API route
+  (which can then call Claude, OpenAI, or any provider server-side).
+
+---
+
+## 16. Running the project
 
 ```bash
 npm install

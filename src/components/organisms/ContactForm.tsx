@@ -5,14 +5,17 @@ import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
 import { submitContactForm, type ContactState } from "@/lib/actions";
 import { Button } from "@/components/atoms/Button";
+import Bi, { useBi } from "@/components/atoms/Bi";
 import { useToast } from "@/lib/toast-context";
 import { services } from "@/data/services";
+import { ui } from "@/lib/i18n";
 
 const initialState: ContactState = { ok: false, message: "" };
 
 export default function ContactForm() {
   const [state, formAction, pending] = useActionState(submitContactForm, initialState);
   const { push } = useToast();
+  const t = useBi();
 
   useEffect(() => {
     if (state.message && state.ok) push(state.message, "success");
@@ -29,7 +32,7 @@ export default function ContactForm() {
           <CheckCircle2 size={30} className="text-emerald-500" />
         </motion.div>
         <h3 className="mt-5 text-lg font-semibold text-[var(--text)]">
-          Message sent
+          <Bi t={ui.messageSent} />
         </h3>
         <p className="mt-2 max-w-sm text-sm leading-relaxed text-[var(--text-muted)]">
           {state.message}
@@ -50,7 +53,7 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
           <label className="mb-1.5 block text-sm font-medium text-[var(--text)]">
-            Full name
+            <Bi t={ui.fullName} />
           </label>
           <input
             name="name"
@@ -61,19 +64,19 @@ export default function ContactForm() {
         </div>
         <div>
           <label className="mb-1.5 block text-sm font-medium text-[var(--text)]">
-            Email address
+            <Bi t={ui.emailAddress} />
           </label>
           <input
             name="email"
             type="email"
             placeholder="jane@company.com"
-            className={inputClass(!!state.fieldErrors?.email)}
+            className={inputClass(!!state.fieldErrors?.email) + " ltr-preserve"}
           />
           {state.fieldErrors?.email && <ErrorText text={state.fieldErrors.email} />}
         </div>
         <div>
           <label className="mb-1.5 block text-sm font-medium text-[var(--text)]">
-            Company (optional)
+            <Bi t={ui.companyOptional} />
           </label>
           <input
             name="company"
@@ -83,30 +86,30 @@ export default function ContactForm() {
         </div>
         <div>
           <label className="mb-1.5 block text-sm font-medium text-[var(--text)]">
-            Service you&apos;re interested in
+            <Bi t={ui.serviceInterested} />
           </label>
           <select name="service" className={inputClass(false)} defaultValue="">
             <option value="" disabled>
-              Select a service
+              {t(ui.selectService)}
             </option>
             {services.map((s) => (
-              <option key={s.slug} value={s.title}>
-                {s.title}
+              <option key={s.slug} value={t(s.title)}>
+                {t(s.title)}
               </option>
             ))}
-            <option value="Not sure yet">Not sure yet</option>
+            <option value={t(ui.notSureYet)}>{t(ui.notSureYet)}</option>
           </select>
         </div>
       </div>
 
       <div>
         <label className="mb-1.5 block text-sm font-medium text-[var(--text)]">
-          Project details
+          <Bi t={ui.projectDetails} />
         </label>
         <textarea
           name="message"
           rows={5}
-          placeholder="What are you trying to solve?"
+          placeholder={t(ui.projectDetailsPlaceholder)}
           className={inputClass(!!state.fieldErrors?.message)}
         />
         {state.fieldErrors?.message && <ErrorText text={state.fieldErrors.message} />}
@@ -120,7 +123,7 @@ export default function ContactForm() {
         icon={pending ? <Loader2 size={16} className="animate-spin" /> : <Send size={15} />}
         iconPosition="left"
       >
-        {pending ? "Sending message..." : "Send Message"}
+        {pending ? t(ui.sendingMessage) : t(ui.sendMessage)}
       </Button>
     </form>
   );

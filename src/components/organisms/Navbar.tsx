@@ -7,8 +7,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Menu, X, User, LogOut } from "lucide-react";
 import Logo from "@/components/atoms/Logo";
 import { LinkButton } from "@/components/atoms/Button";
+import Bi, { useBi } from "@/components/atoms/Bi";
 import ThemeSwitcher from "@/components/molecules/ThemeSwitcher";
+import LanguageSwitcher from "@/components/molecules/LanguageSwitcher";
 import { navLinks, mobileNavLinks } from "@/data/nav";
+import { ui } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth-context";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +21,7 @@ export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   const { user, logout } = useAuth();
+  const t = useBi();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -48,7 +52,7 @@ export default function Navbar() {
             <div
               key={link.href}
               className="relative"
-              onMouseEnter={() => link.dropdown && setOpenDropdown(link.label)}
+              onMouseEnter={() => link.dropdown && setOpenDropdown(t(link.label))}
               onMouseLeave={() => link.dropdown && setOpenDropdown(null)}
             >
               <Link
@@ -60,34 +64,34 @@ export default function Navbar() {
                     : "text-[var(--text-muted)] hover:text-[var(--text)]"
                 )}
               >
-                {link.label}
+                <Bi t={link.label} />
                 {link.dropdown && (
                   <ChevronDown
                     size={14}
                     className={cn(
                       "transition-transform",
-                      openDropdown === link.label && "rotate-180"
+                      openDropdown === t(link.label) && "rotate-180"
                     )}
                   />
                 )}
               </Link>
               <AnimatePresence>
-                {link.dropdown && openDropdown === link.label && (
+                {link.dropdown && openDropdown === t(link.label) && (
                   <motion.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.15 }}
-                    className="card-surface absolute left-0 top-full w-64 rounded-2xl border p-2 shadow-xl"
+                    className="card-surface absolute left-0 top-full w-64 rounded-2xl border p-2 shadow-xl rtl:left-auto rtl:right-0"
                   >
                     {link.dropdown.map((item) => (
                       <Link
-                        key={item.label}
+                        key={item.href}
                         href={item.href}
                         className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
                       >
                         <span aria-hidden="true">{item.icon}</span>
-                        {item.label}
+                        <Bi t={item.label} />
                       </Link>
                     ))}
                   </motion.div>
@@ -98,6 +102,7 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
+          <LanguageSwitcher />
           <ThemeSwitcher />
           {user ? (
             <div className="flex items-center gap-2">
@@ -106,7 +111,7 @@ export default function Navbar() {
               </span>
               <button
                 onClick={logout}
-                aria-label="Log out"
+                aria-label={t(ui.logout)}
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
               >
                 <LogOut size={15} />
@@ -115,23 +120,26 @@ export default function Navbar() {
           ) : (
             <>
               <LinkButton href="/login" variant="ghost" size="sm">
-                Log in
+                <Bi t={ui.login} />
               </LinkButton>
               <LinkButton href="/contact" variant="primary" size="sm">
-                Start a Project
+                <Bi t={ui.startProject} />
               </LinkButton>
             </>
           )}
         </div>
 
-        <button
-          className="lg:hidden flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] text-[var(--text)]"
-          onClick={() => setMobileOpen((o) => !o)}
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <LanguageSwitcher />
+          <button
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] text-[var(--text)]"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -155,7 +163,7 @@ export default function Navbar() {
                   )}
                 >
                   <span aria-hidden="true">{link.icon}</span>
-                  {link.label}
+                  <Bi t={link.label} />
                 </Link>
               ))}
               <div className="flex items-center justify-between gap-3 mt-3 pt-3 border-t border-[var(--border)]">
@@ -165,16 +173,16 @@ export default function Navbar() {
                     onClick={logout}
                     className="text-sm font-medium text-[var(--text-muted)]"
                   >
-                    Log out
+                    <Bi t={ui.logout} />
                   </button>
                 ) : (
                   <LinkButton href="/login" variant="secondary" size="sm">
-                    Log in
+                    <Bi t={ui.login} />
                   </LinkButton>
                 )}
               </div>
               <LinkButton href="/contact" variant="primary" size="md" className="mt-2 w-full">
-                Start a Project
+                <Bi t={ui.startProject} />
               </LinkButton>
             </div>
           </motion.div>
