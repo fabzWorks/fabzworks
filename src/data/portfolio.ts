@@ -30,7 +30,7 @@ export const portfolioProjects: PortfolioProject[] = [
       { en: "Exportable financial reports (CSV/PDF)", ur: "قابلِ برآمد مالیاتی رپورٹس" },
       { en: "Role-based access for merchant staff", ur: "تاجر عملے کے لیے کردار پر مبنی رسائی" },
     ],
-    demoUrl: "#",
+    demoUrl: "https://nex-freight-global.vercel.app/",
     githubUrl: "#",
     gallery: [
       { src: img("orbitpay-1", 900, 600), label: { en: "Dashboard Overview", ur: "ڈیش بورڈ کا جائزہ" } },
@@ -64,7 +64,7 @@ export const portfolioProjects: PortfolioProject[] = [
       { en: "Agent profile pages with saved-search alerts", ur: "محفوظ تلاش الرٹس کے ساتھ ایجنٹ پروفائل صفحات" },
       { en: "3x faster page loads than the previous site", ur: "پرانی سائٹ سے 3 گنا تیز لوڈنگ" },
     ],
-    demoUrl: "#",
+    demoUrl: "https://zhara-ali-saloon.vercel.app/",
     githubUrl: "#",
     gallery: [
       { src: img("greenfield-1", 900, 600), label: { en: "Homepage & Search", ur: "ہوم پیج اور تلاش" } },
@@ -96,7 +96,7 @@ export const portfolioProjects: PortfolioProject[] = [
       { en: "Article feedback and analytics", ur: "مضمون فیڈ بیک اور تجزیات" },
       { en: "Multi-language support", ur: "کثیر لسانی سپورٹ" },
     ],
-    demoUrl: "#",
+    demoUrl: "https://sugarloom-bake-house.vercel.app/",
     githubUrl: "#",
     gallery: [
       { src: img("brightdesk-web-1", 900, 600), label: { en: "Help Center Home", ur: "مدد مرکز ہوم" } },
