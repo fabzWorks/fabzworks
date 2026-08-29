@@ -4,7 +4,7 @@ export const ui = {
   // Navbar / general
   login: { en: "Log in", ur: "لاگ ان" } as Bi,
   logout: { en: "Log out", ur: "لاگ آؤٹ" } as Bi,
-  startProject: { en: "Start a Project", ur: "پراجیکٹ شروع کریں" } as Bi,
+  startProject: { en: "Project", ur: "پراجیکٹ شروع کریں" } as Bi,
   skipToContent: { en: "Skip to content", ur: "مواد پر جائیں" } as Bi,
   clientLogin: { en: "Client Login", ur: "کلائنٹ لاگ ان" } as Bi,
 
@@ -237,7 +237,7 @@ export const ui = {
   } as Bi,
 
   // Contact
-  contactEyebrow: { en: "Contact", ur: "رابطہ" } as Bi,
+  contactEyebrow: { en: "Contact Us", ur: "رابطہ" } as Bi,
   contactTitle: { en: "Let's talk about your project", ur: "آئیے آپ کے منصوبے پر بات کرتے ہیں" } as Bi,
   contactDesc: {
     en: "Tell us what's slowing your team down, we'll come back with a clear, honest plan.",

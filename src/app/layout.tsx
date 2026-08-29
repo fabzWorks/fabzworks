@@ -100,6 +100,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        
         <ThemeProvider>
           <LanguageProvider>
           <ToastProvider>
