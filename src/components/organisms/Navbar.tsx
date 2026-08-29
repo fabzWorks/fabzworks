@@ -44,8 +44,9 @@ export default function Navbar() {
           : "border-b border-transparent bg-transparent"
       )}
     >
+      
       <div className="container-page flex h-16 sm:h-[70px] items-center justify-between">
-        <Logo />
+        {/* <Logo /> */}
 
         <nav className="hidden lg:flex items-center gap-1" aria-label="Primary">
           {navLinks.map((link) => (
